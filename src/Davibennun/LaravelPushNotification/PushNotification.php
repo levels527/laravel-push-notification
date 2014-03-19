@@ -6,25 +6,32 @@ class PushNotification{
 		return new App(\Config::get('laravel-push-notification::'.$appName));
 	}
 	public function Message(){
-    	return (new \ReflectionClass('Sly\NotificationPusher\Model\Message'))->newInstanceArgs(func_get_args());
+        $message = new \ReflectionClass('Sly\NotificationPusher\Model\Message');
+        return $message->newInstanceArgs(func_get_args());
 	}
 	public function Device(){
-    	return (new \ReflectionClass('Sly\NotificationPusher\Model\Device'))->newInstanceArgs(func_get_args());
+        $device = new \ReflectionClass('Sly\NotificationPusher\Model\Device');
+        return $device->newInstanceArgs(func_get_args());
 	}
 	public function DeviceCollection(){
-		return (new \ReflectionClass('Sly\NotificationPusher\Collection\DeviceCollection'))->newInstanceArgs(func_get_args());
+        $deviceCollection = new \ReflectionClass('Sly\NotificationPusher\Collection\DeviceCollection');
+        return $deviceCollection->newInstanceArgs(func_get_args());
 	}
 	public function PushManager(){
-		return (new \ReflectionClass('Sly\NotificationPusher\PushManager'))->newInstanceArgs(func_get_args());
+        $pushManager = new \ReflectionClass('Sly\NotificationPusher\PushManager');
+        return $pushManager->newInstanceArgs(func_get_args());
 	}
 	public function ApnsAdapter(){
-		return (new \ReflectionClass('Sly\NotificationPusher\Adapter\ApnsAdapter'))->newInstanceArgs(func_get_args());
+        $apnsAdapter = new \ReflectionClass('Sly\NotificationPusher\Adapter\ApnsAdapter');
+        return $apnsAdapter->newInstanceArgs(func_get_args());
 	}
 	public function GcmAdapter(){
-		return (new \ReflectionClass('Sly\NotificationPusher\Model\GcmAdapter'))->newInstanceArgs(func_get_args());
+        $gcmAdapter = new \ReflectionClass('Sly\NotificationPusher\Model\GcmAdapter');
+        return $gcmAdapter->newInstanceArgs(func_get_args());
 	}
 	public function Push(){
-		return (new \ReflectionClass('Sly\NotificationPusher\Model\Push'))->newInstanceArgs(func_get_args());
+        $push = new \ReflectionClass('Sly\NotificationPusher\Model\Push');
+        return $push->newInstanceArgs(func_get_args());
 	}
 
 }
