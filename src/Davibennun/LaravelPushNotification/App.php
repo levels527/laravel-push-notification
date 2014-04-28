@@ -3,8 +3,7 @@
 use Sly\NotificationPusher\PushManager,
     Sly\NotificationPusher\Model\Device,
     Sly\NotificationPusher\Model\Message,
-    Sly\NotificationPusher\Model\Push
-;
+    Sly\NotificationPusher\Model\Push;
 
 class App{
 	public function __construct($config){
@@ -14,8 +13,7 @@ class App{
 		$adapterClassName = 'Sly\\NotificationPusher\\Adapter\\'.ucfirst($service);
 
 		$adapterConfig = $config;
-		unset($adapterConfig['environment']);
-		unset($adapterConfig['service']);
+		unset($adapterConfig['environment'], $adapterConfig['service']);
 		
 		$this->adapter = new $adapterClassName($adapterConfig);
 
@@ -24,17 +22,20 @@ class App{
 		}
 	}
 
-	public function to($addressee){
-		$this->addressee = is_string($addressee) ? new Device($addressee) : $addressee;
+    public function to($addressee)
+    {
+        $this->addressee = is_string($addressee) ? new Device($addressee) : $addressee;
 
-		return $this;
-	}
+        return $this;
+    }
 
-	public function send($message,$options=array()){
-		$push = new Push($this->adapter, $this->addressee, $message instanceof Message ? $message : new Message($message,$options));
+    public function send($message, $options = array())
+    {
+        $push = new Push($this->adapter, $this->addressee, ($message instanceof Message) ? $message : new Message($message, $options));
 
-		$this->pushManager->add($push);
+        $this->pushManager->add($push);
 
-		return $this->pushManager->push();
-	}
+        return $this->pushManager->push();
+    }
+
 }

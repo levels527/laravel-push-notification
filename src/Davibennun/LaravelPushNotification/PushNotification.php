@@ -1,7 +1,6 @@
 <?php namespace Davibennun\LaravelPushNotification;
 
-
-class PushNotification{
+class PushNotification {
 	public function app($appName){
 		return new App(\Config::get('laravel-push-notification::'.$appName));
 	}
@@ -33,5 +32,4 @@ class PushNotification{
         $push = new \ReflectionClass('Sly\NotificationPusher\Model\Push');
         return $push->newInstanceArgs(func_get_args());
 	}
-
 }
