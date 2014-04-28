@@ -9,14 +9,19 @@ use Sly\NotificationPusher\PushManager,
 class App{
 	public function __construct($config){
 		$this->pushManager = new PushManager($config['environment'] == "development" ? PushManager::ENVIRONMENT_DEV : PushManager::ENVIRONMENT_PROD);
-
-		$adapterClassName = 'Sly\\NotificationPusher\\Adapter\\'.ucfirst($config['service']);
+		
+		$service = $config['service'];
+		$adapterClassName = 'Sly\\NotificationPusher\\Adapter\\'.ucfirst($service);
 
 		$adapterConfig = $config;
 		unset($adapterConfig['environment']);
 		unset($adapterConfig['service']);
 		
 		$this->adapter = new $adapterClassName($adapterConfig);
+
+		if ($service === 'gcm') {
+			$this->adapter->setAdapterParameters(array('sslverifypeer' => false));
+		}
 	}
 
 	public function to($addressee){
